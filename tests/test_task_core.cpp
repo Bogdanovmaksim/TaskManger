@@ -333,14 +333,15 @@ TEST_CASE("taskMatchesFilter applies combined filter") {
 
 /*!
 \brief Проверка ошибок фильтрации.
-\details Отрицательный диапазон дней и некорректная
+\details Некорректная базовая дата фильтра и некорректная
 задача должны приводить к исключению.
 */
 TEST_CASE("taskMatchesFilter rejects invalid filter or task") {
   const Task task = makeTask(3, "Задача", "05.06.2026", "учеба", Importance::High);
 
   TaskFilter filter;
-  filter.daysFromBaseDate = -1;
+  filter.baseDate = Date{2026, 2, 30};
+  filter.daysFromBaseDate = 5;
 
   REQUIRE_THROWS_AS(taskMatchesFilter(task, filter), std::invalid_argument);
   REQUIRE_THROWS_AS(taskMatchesFilter(Task{0, "Bad", parseDate("05.06.2026"), "учеба",
