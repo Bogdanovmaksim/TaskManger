@@ -90,7 +90,7 @@ id|description|ДД.ММ.ГГГГ|category|importance|status
 
 ## Тесты
 
-Тесты написаны с использованием Doctest и запускаются через CTest:
+Тесты написаны с использованием Doctest, использовался файл https://github.com/doctest/doctest/blob/master/doctest/doctest.h и запускаются через CTest:
 
 ```bash
 ctest --test-dir build --output-on-failure
