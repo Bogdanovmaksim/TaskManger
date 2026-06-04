@@ -395,4 +395,4 @@ void TaskManager::refreshNextId() {
     }
 }
 
-}
+}  // namespace task_manager
