@@ -489,11 +489,11 @@ TEST_CASE("filterTasks returns done tasks") {
 }
 
 /*!
-\brief Проверка фильтрации по ближайшим дням.
-\details Проверяется, что возвращаются только задачи,
-дедлайн которых попадает в указанный диапазон дней.
+\brief Проверка фильтрации по категории.
+\details Проверяется, что поиск по ключевому слову
+находит задачи по названию категории.
 */
-TEST_CASE("filterTasks filters by nearest days") {
+TEST_CASE("filterTasks filters by category keyword") {
   const auto storage = tempPath("manager_filter_tasks_2.txt");
   const auto archive = tempPath("manager_filter_archive_2.txt");
 
@@ -501,24 +501,30 @@ TEST_CASE("filterTasks filters by nearest days") {
 
   TaskManager manager(storage, archive);
 
-  manager.addTask("Близкая",
-                  parseDate("12.06.2026"),
+  manager.addTask("Доклад",
+                  parseDate("10.12.2026"),
                   "учеба",
-                  Importance::Low);
+                  Importance::High);
 
-  manager.addTask("Далекая",
-                  parseDate("25.06.2026"),
+  manager.addTask("Уборка",
+                  parseDate("11.12.2026"),
                   "дом",
                   Importance::Low);
 
+  manager.addTask("Экзамен",
+                  parseDate("12.12.2026"),
+                  "учеба",
+                  Importance::Medium);
+
   TaskFilter filter;
-  filter.baseDate = parseDate("10.06.2026");
-  filter.daysFromBaseDate = 5;
+  filter.keyword = "учеба";
 
   const auto result = manager.filterTasks(filter);
 
-  REQUIRE(result.size() == 1);
-  REQUIRE(result.front().description == "Близкая");
+  REQUIRE(result.size() == 2);
+
+  REQUIRE(result.at(0).category == "учеба");
+  REQUIRE(result.at(1).category == "учеба");
 
   removeFiles(storage, archive);
 }
