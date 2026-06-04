@@ -302,6 +302,8 @@ TEST_CASE("deserializeTask rejects broken file lines") {
   REQUIRE_THROWS_AS(deserializeTask("1abc|Text|01.06.2026|study|low|active"),
                     std::invalid_argument);
   REQUIRE_THROWS_AS(deserializeTask("1|Text|30.02.2026|study|low|active"), std::invalid_argument);
+  REQUIRE_THROWS_AS(deserializeTask("1||01.06.2026|study|low|active"), std::invalid_argument);
+  REQUIRE_THROWS_AS(deserializeTask("1|Text|01.06.2026||low|active"), std::invalid_argument);
   REQUIRE_THROWS_AS(deserializeTask("1|Text|01.06.2026|study|urgent|active"),
                     std::invalid_argument);
   REQUIRE_THROWS_AS(deserializeTask("1|Text\\q|01.06.2026|study|low|active"),
