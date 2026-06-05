@@ -13,11 +13,11 @@ namespace task_manager {
 \brief Набор полей для изменения задачи.
 */
 struct TaskUpdate {
-    std::optional<std::string> description;  ///< Новое описание.
-    std::optional<Date> deadline;            ///< Новый дедлайн.
-    std::optional<std::string> category;     ///< Новая категория.
-    std::optional<Importance> importance;    ///< Новая важность.
-    std::optional<Status> status;            ///< Новый статус.
+    std::optional<std::string> description;
+    std::optional<Date> deadline;
+    std::optional<std::string> category;
+    std::optional<Importance> importance;
+    std::optional<Status> status;
 };
 
 /*!
@@ -103,10 +103,10 @@ class TaskManager {
     const std::vector<Task>& tasks() const;
 
    private:
-    std::filesystem::path storagePath_;  ///< Путь к основному файлу задач.
-    std::filesystem::path archivePath_;  ///< Путь к файлу архива выполненных задач.
-    std::vector<Task> tasks_;            ///< Текущий список задач.
-    int nextId_{1};                      ///< Следующий свободный идентификатор задачи.
+    std::filesystem::path storagePath_;
+    std::filesystem::path archivePath_;
+    std::vector<Task> tasks_;
+    int nextId_{1};
 
     /*!
     \brief Находит задачу по идентификатору.
